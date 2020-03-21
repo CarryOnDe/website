@@ -2,20 +2,45 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    padding: 2,
+    marginTop: '10%'
+  },
+  button:{
+    width: "100%",
+    marginTop: '10%'
+  }
+}));
 
 export default function App() {
+  const classes = useStyles();
   return (
     <Container maxWidth="sm">
-      <Box my={4}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Du suchst/ benötigst Hilfe?
-          Du bist: 
-        </Typography>
-        <Button variant="contained">Helfer</Button>
-        <Button variant="contained">Organisation</Button>
-      </Box>
+
+<div className={classes.root}>
+
+      
+      <Typography variant="h4" component="h1" gutterBottom>
+        Du suchst/ benötigst Hilfe?
+        Du bist: 
+      </Typography>
+    
+      <Grid container spacing={3}>
+        <Grid item xs>
+          <Button className={classes.button} variant="contained">Helfer</Button>
+        </Grid>
+        <Grid item xs>
+        <Button className={classes.button} variant="contained">Organisation</Button>
+        </Grid>
+      </Grid>
+      
+        </div>
     </Container>
   );
 }
