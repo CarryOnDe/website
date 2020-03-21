@@ -1,14 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import {TextField} from "@material-ui/core";
 import HelperPage from "./HelperPage";
 
 
-const useStyles = makeStyles(theme => ({
+const styles = () => ({
   root: {
     flexGrow: 1,
     padding: 2,
@@ -18,17 +17,28 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     marginTop: '10%'
   }
-}));
+});
 
-export default function App() {
-  const classes = useStyles();
-  var isHelper = 0;
+interface IAppProps{
+classes:any
+}
+interface IAppState{
+  isShown: Boolean
 
-  function handleClick(event: React.MouseEvent<HTMLButtonElement>){
-    console.log(isHelper);
-    isHelper = 1;
+}
+
+class App extends React.Component <IAppProps, IAppState>{
+  constructor(props: IAppProps) {
+    super(props);
+    this.state = {isShown: false};
   }
-
+  componentDidMount() {
+      this.setState({
+        isShown: false
+      });
+    };
+ render(){
+  const { classes } = this.props;
   return (
     <Container maxWidth="sm">
       <div className={classes.root}>
@@ -40,16 +50,18 @@ export default function App() {
 
         <Grid container spacing={3}>
           <Grid item xs>
-            <Button className={classes.button} onClick={handleClick} variant="contained">Helfer</Button>
+            <Button onClick={() => this.setState({ isShown : true})} variant="contained">Helfer</Button>
           </Grid>
           <Grid item xs>
-          <Button className={classes.button} variant="contained">Organisation</Button>
+          <Button variant="contained">Organisation</Button>
           </Grid>
         </Grid>
 
-        {isHelper == 1 ? <HelperPage/> : "hello"}
+        {this.state.isShown === true ? <HelperPage/> : "hello"}
 
       </div>
     </Container>
   );
 }
+}
+export default withStyles(styles)(App);
